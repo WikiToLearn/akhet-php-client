@@ -177,4 +177,20 @@ class AkhetClient {
         return $this->makeAPIRequest("instance", "GET", $data, true);
     }
 
+    public function getInstanceResolutionInfo($token) {
+        $data = array(
+            "token" => $token,
+        );
+        return $this->makeAPIRequest("instance-resolution", "GET", $data, true);
+    }
+
+    public function setInstanceResolution($token, $width, $height) {
+        $data = array(
+            "token" => $token,
+            "width" => $width,
+            "height" => $height,
+        );
+        return $this->makeAPIRequest("instance-resolution", "POST", $data, true);
+    }
+
 }
