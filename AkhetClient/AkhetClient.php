@@ -150,6 +150,7 @@ class AkhetClient {
             "additional_ws" => null, // array of additional websockets
             "additional_http" => null, // array of additional http
             "user_label" => null, // user display name
+            "instance_ttl" => null, // instance ttl (seconds), 0 = no limit
         );
 
         foreach ($config as $key => $value) {
