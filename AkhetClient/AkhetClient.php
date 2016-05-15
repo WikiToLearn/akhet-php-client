@@ -140,7 +140,6 @@ class AkhetClient {
             "image" => null, // image to use
             "network" => null, // network profile
             "resource" => null, // resources flavor
-            "enable_cuda" => null, // cuda support
             "env" => null, // env vars
             "notimeout" => null, // instance is persistent
             "shared" => null, // instance is shared
