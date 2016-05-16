@@ -74,6 +74,9 @@ class AkhetClient {
         }
 
         $url = $this->hostname . "/" . $this->api_version . "/" . $uri;
+        if ($method == 'GET' && is_array($data)) {
+            $url .= "?" . http_build_query($data);
+        }
 
         $data_string = json_encode($data);
         $ch = curl_init();
@@ -81,12 +84,14 @@ class AkhetClient {
         curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
         curl_setopt($ch, CURLOPT_USERPWD, $this->username . ":" . $this->password);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            'Content-Type: application/json',
-            'Content-Length: ' . strlen($data_string))
-        );
+        if ($method != 'GET') {
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                'Content-Type: application/json',
+                'Content-Length: ' . strlen($data_string))
+            );
+        }
 
         $response_raw = curl_exec($ch);
         $curl_info = curl_getinfo($ch);
